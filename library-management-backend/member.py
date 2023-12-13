@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_restful import Api, Resource
 from models import db, Member
-from member_utils import validate_required_fields, create_member, get_all_members, update_member, delete_member
+from member_utils import validate_required_fields, create_member, get_all_members, update_member, delete_member, issue_book_to_member, return_book_by_member
 
 member_bp = Blueprint('member', __name__)
 api = Api(member_bp)
@@ -10,7 +10,6 @@ class MemberResource(Resource):
     def post(self):
         data = request.get_json()
 
-        name = data["name"]
         required_fields = ['name']
         validation_result = validate_required_fields(data, required_fields)
         if validation_result:
@@ -37,13 +36,42 @@ class MemberResource(Resource):
         result = delete_member(member_id)
 
         return result
+    
+    def post(self, member_id):
+        data = request.get_json()
+
+        # Check if the request includes a 'book_id'
+        if 'book_id' not in data:
+            return {'message': 'Missing book_id in the request'}, 400
+
+        book_id = data['book_id']
+
+        # Check if the request includes a 'operation' indicating whether to issue or return
+        if 'operation' not in data:
+            return {'message': 'Missing operation in the request (issue/return)'}, 400
+
+        operation = data['operation']
+
+        if operation == 'issue':
+            # Handle issuing a book
+            result = issue_book_to_member(member_id, book_id)
+            return result
+
+        elif operation == 'return':
+            # Handle returning a book
+            result = return_book_by_member(member_id, book_id)
+            return result
+
+        else:
+            return {'message': 'Invalid operation. Supported operations: issue/return'}, 400
 
 class MemberListResource(Resource):
     def get(self):
         members_data = get_all_members()
-        return {'members': members_data} 
+        return {'members': members_data}
+ 
 
-api.add_resource(MemberResource, '/member', '/member/<int:member_id>')
+api.add_resource(MemberResource, '/member', '/member/<int:member_id>', '/member/book/<int:member_id>')
 api.add_resource(MemberListResource, '/member/list')
 
     

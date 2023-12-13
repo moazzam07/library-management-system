@@ -18,11 +18,13 @@ class Book(db.Model):
     publisher = db.Column(db.String(255))
     rent_fee = db.Column(db.Float, default=0.0)
     stock = db.Column(db.Integer, nullable=False)
+    transactions = db.relationship('Transaction', back_populates='book', lazy='dynamic')
 
 class Member(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     outstanding_debt = db.Column(db.Float, default=0.0)
+    borrowed_books = db.relationship('Transaction', back_populates='member', lazy='dynamic')
 
 class Transaction(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -31,3 +33,5 @@ class Transaction(db.Model):
     issue_date = db.Column(db.Date, nullable=False)
     return_date = db.Column(db.Date)
     rent_fee = db.Column(db.Float, default=0.0)
+    member = db.relationship('Member', back_populates='borrowed_books')
+    book = db.relationship('Book', back_populates='transactions')
