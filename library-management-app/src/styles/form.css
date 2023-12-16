@@ -1,31 +1,83 @@
-/* Add your preferred styles for the overall container */
+/* form.css */
 .form {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-  
-h2 {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-}
-  
-label {
-  display: block;
-  margin-bottom: 10px;
-  margin-left: 10px;
+  width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-input {
-  width: 50%;
-  padding: 10px;
-  margin-top: 4px;
-  margin-left: 10px;
-  margin-bottom: 12px;
-  box-sizing: border-box;
+h2 {
+  margin-left: 0px;
+  text-align: center;
 }
- 
+
+.book-list {
+  width: 750px;
+  list-style: none;
+  margin-left: 60px;
+  padding: 0;
+}
+
+.book-item {
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.book-info {
+  width: 650px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.book-title {
+  font-weight: bold;
+}
+
+.book-authors {
+  font-style: italic;
+}
+
+.additional-details {
+  margin-top: 10px;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+}
+
+button {
+  /* height: 30px; */
+  margin-top: 10px;
+  background-color: #3498db;
+  color: #fff;
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 600px) {
+  .form {
+    padding: 10px;
+  }
+
+  .book-item {
+    padding: 8px;
+  }
+
+  button {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .book-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  button {
+    width: 100%;
+    margin-top: 8px;
+  }
+}

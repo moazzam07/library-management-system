@@ -4,6 +4,7 @@ import BookImport from './components/ImportBook';
 import BookList from './components/BookList';
 import MemberList from './components/MemberList';
 import BookForm from './components/BookForm';
+import EditBook from './components/EditBook';
 import MemberForm from './components/MemberForm';
 import TransactionForm from './components/TransactionForm';
 import NavBar from './components/NavBar';
@@ -16,6 +17,7 @@ import {
   createMember,
   updateMember,
   deleteMember,
+  fetchMembers,
 } from './services/api';
 
 const App = () => {
@@ -23,8 +25,10 @@ const App = () => {
   const [members, setMembers] = useState([]);
 
   useEffect(() => {
-    fetchBooks({}).then((data) => setBooks(data));
+    fetchBooks({}).then((data) => {setBooks(data);});
+    
     // Similar logic for fetching members
+    fetchMembers({}).then((data) => {setMembers(data);})
   }, []);
 
   const handleImportBooks = async () => {
@@ -32,11 +36,6 @@ const App = () => {
     await importBooks({});
     // Refresh book list after importing
     fetchBooks({}).then((data) => setBooks(data));
-  };
-
-  const handleCreateBook = async (bookData) => {
-    const newBook = await createBook(bookData);
-    setBooks([...books, newBook]);
   };
 
   const handleUpdateBook = async (bookId, bookData) => {
@@ -54,6 +53,7 @@ const App = () => {
   const handleCreateMember = async (memberData) => {
     const newMember = await createMember(memberData);
     setMembers([...members, newMember]);
+    fetchMembers({}).then((data) => {setMembers(data);})
   };
 
   const handleUpdateMember = async (memberId, memberData) => {
@@ -83,10 +83,8 @@ const App = () => {
           <Route path="/import" element={<BookImport onImport={handleImportBooks}/>}/>
 
           <Route path="/books" element={<BookList books={books} onDelete={handleDeleteBook}/>}/>
-          
-          <Route path="/books/new" element={<BookForm onSubmit={handleCreateBook} />} />
-            
-          <Route path="/books/edit/:id"  element = {<BookForm onSubmit={handleUpdateBook} />} />
+                      
+          <Route path="/books/edit/:id"  element = {<EditBook onSubmit={handleUpdateBook} />} />
           
           <Route path="/members" element= {<MemberList members={members} onDelete={handleDeleteMember} />}/>
             

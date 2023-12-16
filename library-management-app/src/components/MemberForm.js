@@ -1,16 +1,28 @@
 import React, { useState } from 'react';
 import '../styles/form.css'
+import { createMember } from '../services/api';
 
 
-const MemberForm = ({ onSubmit, member }) => {
+const MemberForm = ({ member }) => {
   const [formData, setFormData] = useState({
     name: member ? member.name : '',
     // Add other member properties
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    // const result = await importBooks(importData);
+    console.log(formData)
+
     e.preventDefault();
-    onSubmit(formData); // onSubmit will be createMember or updateMember
+    try {
+      const result = await createMember(formData);
+      
+      console.log('Member Added:', result);
+    } catch (error) {
+      // Handle errors, e.g., show an error message
+      console.error('Error Creating Member:', error);
+    }
+    // onSubmit(formData); // onSubmit will be createMember or updateMember
     // Clear form or reset state as needed
   };
 
@@ -27,7 +39,7 @@ const MemberForm = ({ onSubmit, member }) => {
         />
       </label>
       {/* Add other form fields */}
-      <button type="submit">{member ? 'Update Member' : 'Create Member'}</button>
+      <button type="submit" onClick={handleSubmit}>{member ? 'Update Member' : 'Create Member'}</button>
     {/* </form> */}
     </div>
   );

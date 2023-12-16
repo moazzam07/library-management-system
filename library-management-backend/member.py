@@ -36,7 +36,13 @@ class MemberResource(Resource):
         result = delete_member(member_id)
 
         return result
-    
+
+class MemberListResource(Resource):
+    def get(self):
+        members_data = get_all_members()
+        return {'members': members_data}
+ 
+class TransactionResource(Resource):
     def post(self, member_id):
         data = request.get_json()
 
@@ -64,16 +70,11 @@ class MemberResource(Resource):
 
         else:
             return {'message': 'Invalid operation. Supported operations: issue/return'}, 400
+        
 
-class MemberListResource(Resource):
-    def get(self):
-        members_data = get_all_members()
-        return {'members': members_data}
- 
-
-api.add_resource(MemberResource, '/member', '/member/<int:member_id>', '/member/book/<int:member_id>')
+api.add_resource(MemberResource, '/member', '/member/<int:member_id>')
 api.add_resource(MemberListResource, '/member/list')
-
+api.add_resource(TransactionResource, '/member/book/<int:member_id>')
     
 
 

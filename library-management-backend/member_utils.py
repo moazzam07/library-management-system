@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 
 def validate_required_fields(data, required_fields):
     """Validate required fields in the incoming data."""
+    print(data)
     if not all(field in data for field in required_fields):
         return {'message': 'Missing required fields'}, 400
 

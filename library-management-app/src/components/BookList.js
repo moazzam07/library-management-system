@@ -1,20 +1,50 @@
-import React from 'react';
-import '../styles/form.css'
+import React, { useState } from 'react';
+import '../styles/form.css';
 
-const books = [ {"bookID":"33133","title":"King Richard II","authors":"William Shakespeare/Andrew Gurr","average_rating":"3.77","isbn":"0521297656","isbn13":"9780521297653","language_code":"eng","  num_pages":"240","ratings_count":"27","text_reviews_count":"3","publication_date":"11/30/1984","publisher":"Cambridge University Press"}]
+const BookList = ({ books, onDelete }) => {
+  const [expandedBook, setExpandedBook] = useState(null);
 
+  const handleShowMore = (bookID) => {
+    setExpandedBook(bookID === expandedBook ? null : bookID);
+  };
 
-const BookList = ({ onDelete }) => {
   return (
     <div className='form'>
       <h2>Book List</h2>
-      <ul>
-        {books.map((book) => (
-          <li key={book.id}>
-            {book.title} by {book.authors}{' '}
-            <button onClick={() => onDelete(book.id)}>Delete</button>
-          </li>
-        ))}
+      <ul className='book-list'>
+        {Object.keys(books).map((bookKey) => {
+          const book = books[bookKey];
+          return (
+            <li key={bookKey} className='book-item'>
+              {book.map((obj) => (
+                <>
+                <div key={obj.id} className='book-info'>
+                  <p>
+                    <span className='book-title'>{obj.title}</span> by{' '}
+                    <span className='book-authors'>{obj.authors}</span>
+                  </p>
+                  <button onClick={() => handleShowMore(obj.id)}>
+                    {expandedBook === obj.id ? 'Less' : 'More'}
+                  </button>
+                  {/* <button onClick={() => onDelete(obj.id)}>Delete</button> */}
+                  
+                </div>
+                <div>
+                {expandedBook === obj.id && (
+                  <div className='additional-details'>
+                    <p>Average Rating: {parseFloat(obj.average_rating).toFixed(2)}</p>
+                    <p>Ratings Count: {obj.ratings_count}</p>
+                    <p>Publication Date: {obj.publication_date}</p>
+                    <p>Publisher: {obj.publisher}</p>
+                    <p>Stock: {obj.stock}</p>
+                  </div>
+                )}
+                </div>
+                </>
+              ))}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

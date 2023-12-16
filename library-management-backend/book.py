@@ -10,8 +10,8 @@ api = Api(books_bp)
 class BookResource(Resource):
     def post(self):
         data = request.get_json()
-
-        required_fields = ['book_id', 'title', 'authors', 'isbn', 'isbn13', 'stock']
+        print(data)
+        required_fields = ['bookID', 'title', 'authors', 'isbn', 'isbn13', 'stock']
         validation_result = validate_required_fields(data, required_fields)
         if validation_result:
             return validation_result

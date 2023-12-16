@@ -15,9 +15,6 @@ const NavBar = () => {
           <Link to="/books">Book List</Link>
         </li>
         <li>
-          <Link to="/books/new">Add Book</Link>
-        </li>
-        <li>
           <Link to="/books/edit/:id">Edit Book</Link>
         </li>
         <li>

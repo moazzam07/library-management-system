@@ -1,22 +1,33 @@
-import React, { useState } from 'react';
-import '../styles/form.css'
+// src/components/BookForm.js
+import React, { useState, useEffect } from 'react';
 
-const BookForm = ({ onSubmit, book }) => {
+const BookForm = ({ onSubmit, initialData }) => {
   const [formData, setFormData] = useState({
-    title: book ? book.title : '',
-    author: book ? book.author : '',
+    title: '',
+    author: '',
     // Add other book properties
   });
 
+  useEffect(() => {
+    // If initialData is provided, populate the form with it (for editing)
+    if (initialData) {
+      setFormData(initialData);
+    }
+  }, [initialData]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData); // onSubmit will be createBook or updateBook
+    onSubmit(formData); // onSubmit will be either handleCreateBook or handleUpdateBook
     // Clear form or reset state as needed
+    setFormData({
+      title: '',
+      author: '',
+      // Reset other book properties
+    });
   };
 
   return (
-    <div className='form'>
-    {/* <form onSubmit={handleSubmit}> */}
+    <form onSubmit={handleSubmit}>
       <label>
         Title:
         <input
@@ -34,9 +45,8 @@ const BookForm = ({ onSubmit, book }) => {
         />
       </label>
       {/* Add other form fields */}
-      <button type="submit">{book ? 'Update Book' : 'Create Book'}</button>
-    {/* </form> */}
-    </div>
+      <button type="submit">{initialData ? 'Update Book' : 'Add Book'}</button>
+    </form>
   );
 };
 

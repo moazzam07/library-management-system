@@ -1,10 +1,11 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://frappe-api.example.com';
+const BASE_URL = 'http://127.0.0.1:5000';
 
-const fetchBooks = async (params) => {
+const fetchBooks = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/api/books`, { params });
+    const response = await axios.get(`${BASE_URL}/api/book/list`);
+    // console.log(response.data)
     return response.data;
   } catch (error) {
     console.error('Error fetching books:', error);
@@ -14,9 +15,7 @@ const fetchBooks = async (params) => {
 
 const importBooks = async (data) => {
   try {
-    console.log(data)
-    const response = await axios.get('https://frappe.io/api/method/frappe-library');
-    console.log(response)
+    const response = await axios.post(`${BASE_URL}/data-import`, data);
     return response.data;
   } catch (error) {
     console.error('Error importing books:', error);
@@ -26,7 +25,7 @@ const importBooks = async (data) => {
 
 const createBook = async (bookData) => {
   try {
-    const response = await axios.post(`${BASE_URL}/api/books`, bookData);
+    const response = await axios.post(`${BASE_URL}/api/book`, bookData);
     return response.data;
   } catch (error) {
     console.error('Error creating book:', error);
@@ -36,7 +35,7 @@ const createBook = async (bookData) => {
 
 const updateBook = async (bookId, bookData) => {
   try {
-    const response = await axios.put(`${BASE_URL}/api/books/${bookId}`, bookData);
+    const response = await axios.put(`${BASE_URL}/api/book/${bookId}`, bookData);
     return response.data;
   } catch (error) {
     console.error('Error updating book:', error);
@@ -54,9 +53,21 @@ const deleteBook = async (bookId) => {
   }
 };
 
+const fetchMembers = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/api/member/list`);
+    console.log(response.data)
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching books:', error);
+    throw error;
+  }
+};
+
 const createMember = async (memberData) => {
   try {
-    const response = await axios.post(`${BASE_URL}/api/members`, memberData);
+    const response = await axios.post(`${BASE_URL}/api/member`, memberData);
+    console.log(response)
     return response.data;
   } catch (error) {
     console.error('Error creating member:', error);
@@ -90,6 +101,7 @@ export {
   createBook,
   updateBook,
   deleteBook,
+  fetchMembers,
   createMember,
   updateMember,
   deleteMember,

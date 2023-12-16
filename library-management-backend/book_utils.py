@@ -4,7 +4,7 @@ from flask import request
 def create_book(data):
     """Create a new Book instance and add it to the database."""
     new_book = Book(
-        book_id=data['book_id'],
+        bookID=data['bookID'],
         title=data['title'],
         authors=data['authors'],
         average_rating=data.get('average_rating'),
@@ -64,7 +64,7 @@ def serialize_book(book):
     """Serialize a Book instance."""
     return {
         'id': book.id,
-        'book_id': book.book_id,
+        'bookID': book.bookID,
         'title': book.title,
         'authors': book.authors,
         'average_rating': book.average_rating,
