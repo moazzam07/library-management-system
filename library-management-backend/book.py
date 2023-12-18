@@ -28,8 +28,7 @@ class BookResource(Resource):
         data = request.get_json()
 
         updated_book = update_book(book_id, data)
-
-        return {'message': 'Book updated Successfully', 'book_id': updated_book.id}
+        return {'message': 'Book updated Successfully', 'book_id': book_id}
 
     def delete(self, book_id):
         result = delete_book(book_id)

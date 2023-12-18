@@ -1,14 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/form.css';
+import { deleteBook, fetchBooks } from '../services/api';
+import { useNavigate } from 'react-router-dom';
 
-const BookList = ({ books, onDelete }) => {
+
+const BookList = () => {
   const [expandedBook, setExpandedBook] = useState(null);
+  const [books, setBooks] = useState("")
+
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    const fetchBooksData = async () => {
+      try {
+        const result = await fetchBooks();
+        console.log(result)
+        setBooks(result);
+      } catch (error) {
+        console.error('Error Fetching Books:', error);
+      }
+    };
+
+    fetchBooksData();
+  }, []);
 
   const handleShowMore = (bookID) => {
     setExpandedBook(bookID === expandedBook ? null : bookID);
   };
 
+  const handleEditBook = (bookID) => {
+    navigate(`/books/edit/${bookID}`);
+  }
+
+  const handleDeleteBook = async (bookID) => {
+    const result = await deleteBook(bookID)
+    alert(result)
+  }
+
   return (
+    books && (
     <div className='form'>
       <h2>Book List</h2>
       <ul className='book-list'>
@@ -20,8 +51,7 @@ const BookList = ({ books, onDelete }) => {
                 <>
                 <div key={obj.id} className='book-info'>
                   <p>
-                    <span className='book-title'>{obj.title}</span> by{' '}
-                    <span className='book-authors'>{obj.authors}</span>
+                    <span className='book-title'>{obj.title}</span> 
                   </p>
                   <button onClick={() => handleShowMore(obj.id)}>
                     {expandedBook === obj.id ? 'Less' : 'More'}
@@ -31,12 +61,16 @@ const BookList = ({ books, onDelete }) => {
                 </div>
                 <div>
                 {expandedBook === obj.id && (
-                  <div className='additional-details'>
+                  <div className='book-details-box'>
+                    <p>Authors: {obj.authors}</p>
                     <p>Average Rating: {parseFloat(obj.average_rating).toFixed(2)}</p>
                     <p>Ratings Count: {obj.ratings_count}</p>
                     <p>Publication Date: {obj.publication_date}</p>
                     <p>Publisher: {obj.publisher}</p>
+                    <p>Rent Fee: {obj.rent_fee}</p>
                     <p>Stock: {obj.stock}</p>
+                    <button onClick={() => handleDeleteBook(obj.id)}>Delete Book</button>
+                    <button onClick={() => handleEditBook(obj.id)}>Edit Book</button>
                   </div>
                 )}
                 </div>
@@ -47,6 +81,7 @@ const BookList = ({ books, onDelete }) => {
         })}
       </ul>
     </div>
+  )
   );
 };
 

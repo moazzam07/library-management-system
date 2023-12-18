@@ -15,16 +15,10 @@ const NavBar = () => {
           <Link to="/books">Book List</Link>
         </li>
         <li>
-          <Link to="/books/edit/:id">Edit Book</Link>
-        </li>
-        <li>
           <Link to="/members">Members List</Link>
         </li>
         <li>
           <Link to="/members/new">Add Member</Link>
-        </li>
-        <li>
-          <Link to="/member/edit/:id">Edit Member</Link>
         </li>
         <li>
           <Link to="/transactions">Transaction</Link>

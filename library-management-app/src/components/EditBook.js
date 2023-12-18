@@ -1,44 +1,75 @@
-// // src/components/EditBook.js
-// import React, { useState, useEffect } from 'react';
-// import BookForm from './BookForm';
-// import { updateBook, fetchBooks } from '../services/api';
+// src/components/EditBook.js
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { updateBook } from '../services/api';
+import { useNavigate } from 'react-router-dom';
 
-// const EditBook = ({ match, onEdit }) => {
-//   const [book, setBook] = useState(null);
+const EditBook = () => {
+  const navigate = useNavigate();
 
-//   useEffect(() => {
-//     // Fetch the book data based on the URL parameter
-//     const fetchBookData = async () => {
-//       try {
-//         const books = await fetchBooks({});
-//         const matchedBook = books.find((b) => b.id === match.params.id);
-//         setBook(matchedBook);
-//       } catch (error) {
-//         console.error('Error fetching book data:', error);
-//       }
-//     };
+  const { id } = useParams();
+  const [book, setBook] = useState({
+    title: '',
+    authors: '',
+    rent_fee: 0.0,
+    stock: 0,
+  });  
 
-//     fetchBookData();
-//   }, [match.params.id]);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setBook((prevBook) => ({
+      ...prevBook,
+      [name]: value,
+    }));
+  };
 
-//   const handleEditBook = async (bookData) => {
-//     try {
-//       // Call the API to update the book
-//       await updateBook(book.id, bookData);
-//       onEdit(bookData); // Notify the parent component to refresh the book list
-//       alert('Book updated successfully!');
-//     } catch (error) {
-//       alert('Error updating book. Please check the data format.');
-//       console.error('Error updating book:', error);
-//     }
-//   };
+  const updatedBook = Object.fromEntries(
+    Object.entries(book).filter(([key, value]) => value !== '' && value !== 0)
+  );
 
-//   return (
-//     <div>
-//       <h2>Edit Book</h2>
-//       {book && <BookForm onSubmit={handleEditBook} initialData={book} />}
-//     </div>
-//   );
-// };
+  const handleEditBook = async (bookId) => {
+    try {
+      // Call the API to update the book
+      console.log(updatedBook)
+      await updateBook(bookId, updatedBook);
+      navigate(`/books`);
+      alert('Book updated successfully!');
+    } catch (error) {
+      alert('Error updating book. Please check the data format.');
+      console.error('Error updating book:', error);
+    }
+  };
 
-// export default EditBook;
+  return (
+    <div className='form1'>
+      <h2>Edit Book</h2>
+      <form>
+        {/* Include input fields for each book detail */}
+        <label>
+          Title:
+          <input type="text" name="title" value={book.title} onChange={handleInputChange} />
+        </label>
+        <label>
+          Authors:
+          <input type="text" name="authors" value={book.authors} onChange={handleInputChange} />
+        </label>
+        <label>
+          Rent Fee:
+          <input type="number" name="rent_fee" value={book.rent_fee} onChange={handleInputChange} />
+        </label>
+        <label>
+          Stock:
+          <input type="number" name="Stock" value={book.stock} onChange={handleInputChange} />
+        </label>
+
+        {/* Add other input fields as needed */}
+
+        <button type="button" onClick={() => handleEditBook(id, book)}>
+          Save Changes
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default EditBook;

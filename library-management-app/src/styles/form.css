@@ -36,6 +36,7 @@ h2 {
 }
 
 .book-title {
+  margin-left: 13px;
   font-weight: bold;
 }
 
@@ -51,6 +52,7 @@ h2 {
 
 button {
   /* height: 30px; */
+  margin-right: 10px;
   margin-top: 10px;
   background-color: #3498db;
   color: #fff;
@@ -60,28 +62,13 @@ button {
 }
 
 /* Responsive Styles */
-@media screen and (max-width: 600px) {
-  .form {
-    padding: 10px;
-  }
-
-  .book-item {
-    padding: 8px;
-  }
-
-  button {
-    font-size: 14px;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .book-info {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  button {
-    width: 100%;
-    margin-top: 8px;
-  }
+.book-details-box {
+  flex: 0 0 45%; /* Adjust the width as needed */
+  background-color: #fefefe;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
 }

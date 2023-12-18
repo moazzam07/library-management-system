@@ -55,31 +55,6 @@ const BookImport = () => {
           onChange={handleInputChange}
         />
       </label>
-
-      {/* <label>
-        Authors:
-        <input type="text" value={authors} onChange={(e) => setAuthors(e.target.value)} />
-      </label>
-
-      <label>
-        ISBN:
-        <input type="text" value={isbn} onChange={(e) => setIsbn(e.target.value)} />
-      </label>
-
-      <label>
-        Publisher:
-        <input type="text" value={publisher} onChange={(e) => setPublisher(e.target.value)} />
-      </label>
-
-      <label>
-        Page:
-        <input type="text" value={page} onChange={(e) => setPage(e.target.value)} />
-      </label> */}
-      {/* {responseData && (
-        <div className="response-box">
-          <pre>{JSON.stringify(responseData.message, null, 2)}</pre>
-        </div>
-      )} */}
       {responseData && (
         <>
           <ResponseBox responseData={responseData} />

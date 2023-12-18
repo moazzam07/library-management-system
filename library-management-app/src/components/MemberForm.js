@@ -40,7 +40,7 @@ const MemberForm = ({ member }) => {
         />
       <br></br>
       {/* Add other form fields */}
-      <button type="submit" className="addMemberButton" onClick={handleSubmit}>{member ? 'Update Member' : 'Create Member'}</button>
+      <button type="submit" className="addMemberButton" onClick={handleSubmit}>Create Member</button>
     {/* </form> */}
     </div>
   );

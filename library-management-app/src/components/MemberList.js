@@ -3,8 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/MemberList.css'; // Import the CSS file
 import { fetchMembers, deleteMember } from '../services/api';
+import { useNavigate } from 'react-router-dom';
 
 const MemberList = () => {
+
+  const navigate = useNavigate()
   const [members, setMembers] = useState([]);
 
   useEffect(() => {
@@ -20,6 +23,9 @@ const MemberList = () => {
     fetchMembersData();
   }, []);
 
+  const handleEdit = async (memberID) => {
+    navigate(`/members/edit/${memberID}`);
+  }
   const handleDelete = async (member_id) => {
     try {
       // Call the importBooks function to make the API request
@@ -42,6 +48,7 @@ const MemberList = () => {
           <div className="member-details-box">
             <p><b>Name:</b> {member.name}</p>
             <p><b>Dept:</b> {member.outstanding_debt}</p>
+            <button onClick={() => handleEdit(member.id)}>Edit</button>
             <button onClick={() => handleDelete(member.id)}>Delete</button>
           </div>
         ))}

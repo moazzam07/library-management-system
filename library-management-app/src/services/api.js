@@ -45,7 +45,7 @@ const updateBook = async (bookId, bookData) => {
 
 const deleteBook = async (bookId) => {
   try {
-    const response = await axios.delete(`${BASE_URL}/api/books/${bookId}`);
+    const response = await axios.delete(`${BASE_URL}/api/book/${bookId}`);
     return response.data;
   } catch (error) {
     console.error('Error deleting book:', error);
@@ -76,7 +76,7 @@ const createMember = async (memberData) => {
 
 const updateMember = async (memberId, memberData) => {
   try {
-    const response = await axios.put(`${BASE_URL}/api/members/${memberId}`, memberData);
+    const response = await axios.put(`${BASE_URL}/api/member/${memberId}`, memberData);
     return response.data;
   } catch (error) {
     console.error('Error updating member:', error);

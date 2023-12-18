@@ -3,100 +3,31 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import BookImport from './components/ImportBook';
 import BookList from './components/BookList';
 import MemberList from './components/MemberList';
-import BookForm from './components/BookForm';
 import EditBook from './components/EditBook';
 import MemberForm from './components/MemberForm';
 import TransactionForm from './components/TransactionForm';
 import NavBar from './components/NavBar';
-import {
-  fetchBooks,
-  importBooks,
-  createBook,
-  updateBook,
-  deleteBook,
-  createMember,
-  updateMember,
-  deleteMember,
-  fetchMembers,
-} from './services/api';
+import EditMember from './components/EditMember';
 
 const App = () => {
-  const [books, setBooks] = useState([]);
-  const [members, setMembers] = useState([]);
-
-  useEffect(() => {
-    fetchBooks({}).then((data) => {setBooks(data);});
-    
-    // Similar logic for fetching members
-    fetchMembers({}).then((data) => {setMembers(data);})
-  }, []);
-
-  const handleImportBooks = async () => {
-    // Handle importing logic (if needed)
-    await importBooks({});
-    // Refresh book list after importing
-    fetchBooks({}).then((data) => setBooks(data));
-  };
-
-  const handleUpdateBook = async (bookId, bookData) => {
-    await updateBook(bookId, bookData);
-    // Refresh book list after updating
-    fetchBooks({}).then((data) => setBooks(data));
-  };
-
-  const handleDeleteBook = async (bookId) => {
-    await deleteBook(bookId);
-    // Refresh book list after deleting
-    fetchBooks({}).then((data) => setBooks(data));
-  };
-
-  const handleCreateMember = async (memberData) => {
-    const newMember = await createMember(memberData);
-    setMembers([...members, newMember]);
-    fetchMembers({}).then((data) => {setMembers(data);})
-  };
-
-  const handleUpdateMember = async (memberId, memberData) => {
-    await updateMember(memberId, memberData);
-    // Refresh member list after updating
-    // Similar logic for refreshing books
-  };
-
-  const handleDeleteMember = async (memberId) => {
-    await deleteMember(memberId);
-    // Refresh member list after deleting
-    // Similar logic for refreshing books
-  };
-
-  const handleCreateTransaction = async (transactionData) => {
-    // Handle transaction logic (e.g., update book stock, charge rent fee)
-    // Refresh book and member lists after the transaction
-    fetchBooks({}).then((data) => setBooks(data));
-    // Similar logic for refreshing members
-  };
-
   return (
     <Router>
       <div>
         <NavBar/>
         <Routes>
-          <Route path="/import" element={<BookImport onImport={handleImportBooks}/>}/>
+          <Route path="/import" element={<BookImport/>}/>
 
-          <Route path="/books" element={<BookList books={books} onDelete={handleDeleteBook}/>}/>
+          <Route path="/books" element={<BookList/>}/>
                       
-          <Route path="/books/edit/:id"  element = {<EditBook onSubmit={handleUpdateBook} />} />
+          <Route path="/books/edit/:id"  element = {<EditBook/>} />
           
-          <Route path="/members" element= {<MemberList members={members} onDelete={handleDeleteMember} />}/>
+          <Route path="/members" element= {<MemberList/>}/>
             
-          <Route path="/members/new" element = {<MemberForm onSubmit={handleCreateMember} />} />
+          <Route path="/members/new" element = {<MemberForm/>} />
             
-          <Route path="/members/edit/:id" element= {<MemberForm onSubmit={handleUpdateMember} />} />
+          <Route path="/members/edit/:id" element= {<EditMember/>} />
       
-          <Route path="/transactions" element={<TransactionForm
-              books={books}
-              members={members}
-              onSubmit={handleCreateTransaction}
-            />} /> 
+          <Route path="/transactions" element={<TransactionForm/>} /> 
         
         </Routes>
       </div>
