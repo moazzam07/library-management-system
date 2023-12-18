@@ -67,7 +67,6 @@ const fetchMembers = async () => {
 const createMember = async (memberData) => {
   try {
     const response = await axios.post(`${BASE_URL}/api/member`, memberData);
-    console.log(response)
     return response.data;
   } catch (error) {
     console.error('Error creating member:', error);
@@ -87,12 +86,24 @@ const updateMember = async (memberId, memberData) => {
 
 const deleteMember = async (memberId) => {
   try {
-    const response = await axios.delete(`${BASE_URL}/api/members/${memberId}`);
+    const response = await axios.delete(`${BASE_URL}/api/member/${memberId}`);
     return response.data;
   } catch (error) {
     console.error('Error deleting member:', error);
     throw error;
   }
+};
+
+const bookTransaction = async (memberId, requestData) => {
+  try{
+    console.log(memberId)
+    console.log(requestData)
+    const response = await axios.post(`${BASE_URL}/api/member/book/${memberId}`, requestData);
+    return response.data;
+  } catch (error) {
+    console.error('Error in transaction:', error);
+    throw error;
+}
 };
 
 export {
@@ -105,4 +116,5 @@ export {
   createMember,
   updateMember,
   deleteMember,
+  bookTransaction,
 };

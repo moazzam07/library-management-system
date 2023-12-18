@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/form.css'
+import '../styles/MemberList.css'
 import { createMember } from '../services/api';
 
 
@@ -27,19 +27,20 @@ const MemberForm = ({ member }) => {
   };
 
   return (
-    <div className='form'>
+    <div className='form1'>
     
     {/* <form onSubmit={handleSubmit}> */}
       <label>
         Name:
+      </label>
         <input
           type="text"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
         />
-      </label>
+      <br></br>
       {/* Add other form fields */}
-      <button type="submit" onClick={handleSubmit}>{member ? 'Update Member' : 'Create Member'}</button>
+      <button type="submit" className="addMemberButton" onClick={handleSubmit}>{member ? 'Update Member' : 'Create Member'}</button>
     {/* </form> */}
     </div>
   );

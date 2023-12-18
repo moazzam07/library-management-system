@@ -1,43 +1,51 @@
-import React, { useEffect, useState } from 'react';
-import '../styles/form.css'
-import { fetchMembers } from '../services/api';
+// MemberList.js
 
-
+import React, { useState, useEffect } from 'react';
+import '../styles/MemberList.css'; // Import the CSS file
+import { fetchMembers, deleteMember } from '../services/api';
 
 const MemberList = () => {
-  const [members, setMembers] = useState([])
+  const [members, setMembers] = useState([]);
 
   useEffect(() => {
     const fetchMembersData = async () => {
       try {
         const result = await fetchMembers();
-        setMembers(result.members)
-        console.log("hi")
+        setMembers(result.members);
       } catch (error) {
-        // Handle errors, e.g., show an error message
-        console.error('Error Creating Member:', error);
+        console.error('Error Fetching Members:', error);
       }
     };
+
     fetchMembersData();
   }, []);
-  
+
+  const handleDelete = async (member_id) => {
+    try {
+      // Call the importBooks function to make the API request
+      const result = await deleteMember(member_id);
+      
+      console.log('Member Deleted:', result);
+      setMembers((prevMembers) => prevMembers.filter((member) => member.id !== member_id));
+    } catch (error) {
+      // Handle errors, e.g., show an error message
+      console.error('Error deleting Member:', error);
+    }
+  };
+
   return (
-    <div className='form'>
+    <div className='form1'>
       <h2>Member List</h2>
-      <ul className='book-list'>
-        
+      <div className="member-list-container">
         {members.map((member) => (
-          <li key={member.id} className='book-item'>
-            <p>
-            {member.id}{'. '}
-            <span className='book-title'>
-            Name: {member.name}{' '}</span>
-            <span className='book-title'>Debt:</span> {' '}{member.outstanding_debt}</p>
-            
-            <button onClick={() => console.log("deleted")}>Delete</button>
-          </li>
+          // <MemberDetailsBox key={member.id} member={member} />
+          <div className="member-details-box">
+            <p><b>Name:</b> {member.name}</p>
+            <p><b>Dept:</b> {member.outstanding_debt}</p>
+            <button onClick={() => handleDelete(member.id)}>Delete</button>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

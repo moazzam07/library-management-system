@@ -1,38 +1,37 @@
 import React, { useState } from 'react';
 import '../styles/form.css'
+import { bookTransaction } from '../services/api';
 
 
-const TransactionForm = ({ onSubmit, books, members }) => {
-  const [formData, setFormData] = useState({
+const TransactionForm = ({ books, members }) => {
+
+  const initialFormData = {
     bookId: '',
     memberId: '',
     type: 'issue', // or 'return'
-  });
+  };
+  
+  const [formData, setFormData] = useState(initialFormData);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Check if the book and member exist
-    const bookExists = books.some((book) => book.id === formData.bookId);
-    const memberExists = members.some((member) => member.id === formData.memberId);
-
-    if (!bookExists || !memberExists) {
-      alert('Book or member not found. Please check IDs.');
-      return;
-    }
-
     // Perform logic for issuing/returning books and member debt checks
+    const requestData = {
+      book_id: formData.bookId,
+      operation: formData.type,
+    };
+
     if (formData.type === 'issue') {
+      const result = await bookTransaction(formData.memberId, requestData)
+      console.log('message:', result);
       // Implement logic for issuing books
       // Update book stock and create a transaction record
     } else if (formData.type === 'return') {
-      // Implement logic for returning books
-      // Update book stock, create a transaction record, and charge a rent fee
-      // Check member's outstanding debt and handle accordingly
+      const result = await bookTransaction(formData.memberId, requestData)
+      console.log('message:', result);
     }
-
-    onSubmit(formData); // onSubmit will be a createTransaction function
     // Clear form or reset state as needed
+    setFormData(initialFormData);
   };
 
   return (
@@ -64,7 +63,7 @@ const TransactionForm = ({ onSubmit, books, members }) => {
           <option value="return">Return</option>
         </select>
       </label>
-      <button type="submit">Submit Transaction</button>
+      <button type="submit" onClick={handleSubmit}>Submit</button>
      {/* </form> */}
     </div>
   );

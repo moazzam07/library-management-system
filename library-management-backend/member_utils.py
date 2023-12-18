@@ -75,8 +75,12 @@ def issue_book_to_member(member_id, book_id):
         return {'message': 'Book is not in Stock'}, 400
     
     # Update book details and member's borrowed_books
+    print(member.outstanding_debt)
+    print(book.rent_fee)
+    member.outstanding_debt = member.outstanding_debt + book.rent_fee
+
     book.stock -= 1
-    member.outstanding_debt += book.rent_fee
+    
     new_transaction = Transaction(member_id=member.id, book_id=book.id, issue_date= datetime.now())
     db.session.add(new_transaction)
     db.session.commit()

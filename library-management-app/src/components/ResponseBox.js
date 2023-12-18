@@ -12,13 +12,15 @@ const ResponseBox = ({ responseData }) => {
   };
 
   const [stockQuantity, setStockQuantity] = useState(0);
+  const [rentFee, setRentFee] = useState(0)
 
 
   const handleAddBook = async (bookData,) => {
     try {
       // Call the API to add a new book
       console.log(bookData)
-      const bookWithStock = { ...bookData, stock: stockQuantity };
+      const bookWithStock = { ...bookData, stock: stockQuantity, rent_fee: rentFee };
+      console.log(bookWithStock)
       const newBook = await createBook(bookWithStock);
       // onAdd(newBook); // Notify the parent component to refresh the book list
       alert('Book added successfully!', newBook.title);
@@ -45,6 +47,14 @@ const ResponseBox = ({ responseData }) => {
               type="number"
               value={stockQuantity}
               onChange={(e) => setStockQuantity(parseInt(e.target.value, 10))}
+            />
+          </label>
+          <label>
+            <b>Price:</b>
+            <input
+              type="number"
+              value={rentFee}
+              onChange={(e) => setRentFee(parseInt(e.target.value, 10))}
             />
           </label>
           <button onClick={() => handleAddBook(book)}>add</button>

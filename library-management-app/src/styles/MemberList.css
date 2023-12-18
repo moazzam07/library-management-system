@@ -1,0 +1,61 @@
+.form1 {
+  max-width: 400px;
+  margin: 60px auto;
+  justify-content: center;
+  align-items: center; /* Center vertically */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+.member-list-container {
+    display: center;
+    flex-wrap: wrap;
+  }
+  
+  .member-details-box {
+    flex: 0 0 45%; /* Adjust the width as needed */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .member-details-box:hover {
+    transform: scale(1.03);
+  }
+  
+  .member-details-box p {
+    margin: 0;
+    color: #555;
+  }
+  
+  button {
+    /* height: 30px; */
+    margin-left: -2px;
+    margin-top: 10px;
+    background-color: #3498db;
+    color: #fff;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    align-self: center;
+  }
+  .addMemberButton {
+    margin-left: 7px;
+    margin-top: 10px;
+    background-color: #3498db;
+    color: #fff;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    align-self: center;
+  }
+
+  input {
+    width: 250px;
+  }
