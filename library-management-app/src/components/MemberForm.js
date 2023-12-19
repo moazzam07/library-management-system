@@ -18,6 +18,7 @@ const MemberForm = ({ member }) => {
       const result = await createMember(formData);
       
       console.log('Member Added:', result);
+      alert("Member Added Successfully")
     } catch (error) {
       // Handle errors, e.g., show an error message
       console.error('Error Creating Member:', error);
@@ -28,20 +29,16 @@ const MemberForm = ({ member }) => {
 
   return (
     <div className='form1'>
-    
-    {/* <form onSubmit={handleSubmit}> */}
+    <h2>Create Member</h2>
       <label>
         Name:
-      </label>
         <input
           type="text"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
         />
-      <br></br>
-      {/* Add other form fields */}
-      <button type="submit" className="addMemberButton" onClick={handleSubmit}>Create Member</button>
-    {/* </form> */}
+      </label>
+      <button type="submit" className='custom-button' onClick={handleSubmit}>Create Member</button>
     </div>
   );
 };

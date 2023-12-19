@@ -9,10 +9,10 @@ const NavBar = () => {
     <nav>
       <ul>
         <li>
-          <Link to="/import">Import Data</Link>
+          <Link to="/books">Book List</Link>
         </li>
         <li>
-          <Link to="/books">Book List</Link>
+          <Link to="/import">Import Data</Link>
         </li>
         <li>
           <Link to="/members">Members List</Link>

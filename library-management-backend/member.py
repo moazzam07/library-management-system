@@ -17,7 +17,7 @@ class MemberResource(Resource):
         
         new_member = create_member(data)
 
-        return {'message': 'Member Created Successfully', 'member_id': new_member.id}, 201
+        return {'message': 'Member Created Successfully', 'member_id': new_member.name}, 201
     
     def put(self, member_id):
         data = request.get_json()

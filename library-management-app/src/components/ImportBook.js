@@ -58,22 +58,13 @@ const BookImport = () => {
       {responseData && (
         <>
           <ResponseBox responseData={responseData} />
-          <br></br>  
         </>
       )}
-      <br></br>
       {!responseData && 
-      <button onClick={handleImport}>Import Books</button>
+      <button onClick={handleImport} className='custom-button'>Import Books</button>
       }
-      
-      
     </div>
     </div>
-    
-    // <div>
-    //   <h2>Book Import Component</h2>
-    //   <button onClick={handleImport}>Import Books</button>
-    // </div>
   );
 };
 

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const BookList = () => {
   const [expandedBook, setExpandedBook] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("")
   const [books, setBooks] = useState("")
 
   const navigate = useNavigate();
@@ -15,7 +16,6 @@ const BookList = () => {
     const fetchBooksData = async () => {
       try {
         const result = await fetchBooks();
-        console.log(result)
         setBooks(result);
       } catch (error) {
         console.error('Error Fetching Books:', error);
@@ -35,54 +35,72 @@ const BookList = () => {
 
   const handleDeleteBook = async (bookID) => {
     const result = await deleteBook(bookID)
-    alert(result)
+    alert(result.message)
+    window.location.reload();
   }
-
+  // const bookArray = Object.values(books);
+  // console.log(books)
+  const filteredBooks = books
+  ? books.books.filter((book) => (
+    console.log(book),
+    book?.title?.toLowerCase().includes(searchQuery.toLowerCase())))
+  : [];
+  
+  console.log(typeof filteredBooks)
   return (
-    books && (
+    
     <div className='form'>
-      <h2>Book List</h2>
+      <div className='div-class'>
+      <h2>Book List
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className='search-box'
+              placeholder='Search Book'
+            />
+      </h2>
+      </div>
+      {books && 
       <ul className='book-list'>
-        {Object.keys(books).map((bookKey) => {
-          const book = books[bookKey];
+      <li>
+      {filteredBooks.map((bookKey) => {
+          const obj = bookKey;
           return (
             <li key={bookKey} className='book-item'>
-              {book.map((obj) => (
-                <>
-                <div key={obj.id} className='book-info'>
+              {/* {book.map((obj) => ( */}
+                <><div key={obj.id} className='book-info'>
                   <p>
-                    <span className='book-title'>{obj.title}</span> 
+                    <span className='book-title'>{obj.title}</span>
                   </p>
                   <button onClick={() => handleShowMore(obj.id)}>
                     {expandedBook === obj.id ? 'Less' : 'More'}
                   </button>
-                  {/* <button onClick={() => onDelete(obj.id)}>Delete</button> */}
-                  
-                </div>
-                <div>
-                {expandedBook === obj.id && (
-                  <div className='book-details-box'>
-                    <p>Authors: {obj.authors}</p>
-                    <p>Average Rating: {parseFloat(obj.average_rating).toFixed(2)}</p>
-                    <p>Ratings Count: {obj.ratings_count}</p>
-                    <p>Publication Date: {obj.publication_date}</p>
-                    <p>Publisher: {obj.publisher}</p>
-                    <p>Rent Fee: {obj.rent_fee}</p>
-                    <p>Stock: {obj.stock}</p>
-                    <button onClick={() => handleDeleteBook(obj.id)}>Delete Book</button>
-                    <button onClick={() => handleEditBook(obj.id)}>Edit Book</button>
-                  </div>
-                )}
-                </div>
-                </>
-              ))}
+                </div><div>
+                    {expandedBook === obj.id && (
+                      <div className='book-details-box'>
+                        <p><b>Authors:</b> {obj.authors}</p>
+                        <p><b>Average Rating:</b> {parseFloat(obj.average_rating).toFixed(2)}</p>
+                        <p><b>Ratings Count:</b> {obj.ratings_count}</p>
+                        <p><b>Publication Date:</b> {obj.publication_date}</p>
+                        <p><b>Publisher:</b> {obj.publisher}</p>
+                        <p><b>Rent Fee:</b> {obj.rent_fee}</p>
+                        <p><b>Stock:</b> {obj.stock}</p>                        
+                        <button onClick={() => handleEditBook(obj.id)}>Edit Book</button>
+                        <button onClick={() => handleDeleteBook(obj.id)}>Delete Book</button>
+                      </div>
+                    )}
+                  </div></>
+              {/* )) */}
             </li>
-          );
+          )
         })}
+        </li>
       </ul>
+        }
     </div>
   )
-  );
+
 };
 
 export default BookList;

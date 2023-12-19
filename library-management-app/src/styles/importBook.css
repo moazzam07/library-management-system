@@ -69,7 +69,7 @@ button:hover {
   background-color: white;
   padding: 10px;
   margin-top: 20px;
-  max-height: 200px; /* Set a fixed height for the response box */
+  max-height: 200px;
   overflow: auto;
 }
 
@@ -82,10 +82,10 @@ button:hover {
   margin: 20px 0;
 }
 
+.custom-button {
+  margin-left: 120px;
+}
 
-@media (max-width: 600px) {
-  /* Adjust styles for smaller screens if needed */
-  input {
-    margin-bottom: 10px;
-  }
+.transaction-button {
+  margin-left: 150px;
 }

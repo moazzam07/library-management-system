@@ -7,7 +7,6 @@ import { createBook } from '../services/api';
 
 const ResponseBox = ({ responseData }) => {
   const formatNumber = (value) => {
-    // Convert the string to a number and format it
     return Number(value);
   };
 
@@ -17,12 +16,8 @@ const ResponseBox = ({ responseData }) => {
 
   const handleAddBook = async (bookData,) => {
     try {
-      // Call the API to add a new book
-      console.log(bookData)
       const bookWithStock = { ...bookData, stock: stockQuantity, rent_fee: rentFee };
-      console.log(bookWithStock)
       const newBook = await createBook(bookWithStock);
-      // onAdd(newBook); // Notify the parent component to refresh the book list
       alert('Book added successfully!', newBook.title);
     } catch (error) {
       alert('Error adding book. Please check the data format.');
@@ -31,33 +26,32 @@ const ResponseBox = ({ responseData }) => {
   };
   return (
     <div className="response-box">
-      
       {responseData?.map((book, index) => (
         <div key={index} className="book-details">
-          {/* <p>Book Id: {book.bookID}</p> */}
           <p><b>Title:</b> {book.title}</p>
           <p><b>Authors:</b> {book.authors}</p>
           <p><b>Average Rating:</b> {parseFloat(book.average_rating).toFixed(2)}</p>
           <p><b>Ratings Count:</b> {formatNumber(book.ratings_count)}</p>
           <p><b>Publication Date:</b> {book.publication_date}</p>
           <p><b>Publisher:</b> {book.publisher}</p>
-          <label>
-            <b>Stock Quantity:</b>
+          <p>
+            <b>Stock:</b>
             <input
               type="number"
               value={stockQuantity}
               onChange={(e) => setStockQuantity(parseInt(e.target.value, 10))}
+              
             />
-          </label>
-          <label>
+          </p>
+          <p>
             <b>Price:</b>
             <input
               type="number"
               value={rentFee}
               onChange={(e) => setRentFee(parseInt(e.target.value, 10))}
             />
-          </label>
-          <button onClick={() => handleAddBook(book)}>add</button>
+          </p>
+          <button onClick={() => handleAddBook(book)} className='custom-button'>Add Book</button>
           {index < responseData.length - 1 && <hr className="book-separator" />}
           
         </div>

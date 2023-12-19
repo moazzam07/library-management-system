@@ -3,7 +3,7 @@ import '../styles/form.css'
 import { bookTransaction } from '../services/api';
 
 
-const TransactionForm = ({ books, members }) => {
+const TransactionForm = () => {
 
   const initialFormData = {
     bookId: '',
@@ -14,8 +14,9 @@ const TransactionForm = ({ books, members }) => {
   const [formData, setFormData] = useState(initialFormData);
 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
-    // Perform logic for issuing/returning books and member debt checks
+    try {
     const requestData = {
       book_id: formData.bookId,
       operation: formData.type,
@@ -23,20 +24,21 @@ const TransactionForm = ({ books, members }) => {
 
     if (formData.type === 'issue') {
       const result = await bookTransaction(formData.memberId, requestData)
-      console.log('message:', result);
-      // Implement logic for issuing books
-      // Update book stock and create a transaction record
+      alert(result.message)
     } else if (formData.type === 'return') {
       const result = await bookTransaction(formData.memberId, requestData)
-      console.log('message:', result);
+
+      alert(result.message)
     }
-    // Clear form or reset state as needed
     setFormData(initialFormData);
+    } catch(error) {
+      alert('Some thing went wrong', error);
+    }
   };
 
   return (
-    <div className='form'>
-    {/* <form onSubmit={handleSubmit}> */}
+    <div className='form1'>
+      <h2>Book Transaction</h2>
       <label>
         Book ID:
         <input
@@ -56,6 +58,7 @@ const TransactionForm = ({ books, members }) => {
       <label>
         Transaction Type:
         <select
+          className='select-type'
           value={formData.type}
           onChange={(e) => setFormData({ ...formData, type: e.target.value })}
         >
@@ -63,8 +66,8 @@ const TransactionForm = ({ books, members }) => {
           <option value="return">Return</option>
         </select>
       </label>
-      <button type="submit" onClick={handleSubmit}>Submit</button>
-     {/* </form> */}
+      <button type="submit" onClick={handleSubmit} className='transaction-button'>Submit</button>
+      
     </div>
   );
 };
