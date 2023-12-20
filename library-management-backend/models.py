@@ -1,8 +1,11 @@
 from flask_sqlalchemy import SQLAlchemy
 
+# Create a SQLAlchemy instance
 db = SQLAlchemy()
 
+# Define the Book model
 class Book(db.Model):
+    """Model representing a book."""
     id = db.Column(db.Integer, primary_key=True)
     bookID = db.Column(db.String(255), unique=True, nullable=False)
     title = db.Column(db.String(255), nullable=False)
@@ -20,13 +23,17 @@ class Book(db.Model):
     stock = db.Column(db.Integer, nullable=False)
     transactions = db.relationship('Transaction', back_populates='book', lazy='dynamic')
 
+# Define the Member model
 class Member(db.Model):
+    """Model representing a library member."""
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     outstanding_debt = db.Column(db.Float, default=0.0)
     borrowed_books = db.relationship('Transaction', back_populates='member', lazy='dynamic')
 
+# Define the Transaction model
 class Transaction(db.Model):
+    """Model representing a transaction between a member and a book."""
     id = db.Column(db.Integer, primary_key=True)
     book_id = db.Column(db.Integer, db.ForeignKey('book.id'), nullable=False)
     member_id = db.Column(db.Integer, db.ForeignKey('member.id'), nullable=False)

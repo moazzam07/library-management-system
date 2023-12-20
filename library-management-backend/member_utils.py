@@ -72,18 +72,20 @@ def issue_book_to_member(member_id, book_id):
     
     # Check if the book is in stock
     if book.stock <= 0:
-        return {'message': 'Book is not in Stock'}, 400
-    
-    # Update book details and member's borrowed_books
-    print(member.outstanding_debt)
-    print(book.rent_fee)
-    member.outstanding_debt = member.outstanding_debt + book.rent_fee
+        return {'message': 'Book is not in Stock'}, 400    
 
+    # Reduce the book stock by 1
     book.stock -= 1
     
+    # Add rent fee of the book to the member outstanding
+    member.outstanding_debt = member.outstanding_debt + book.rent_fee
+
+    # Create a new transaction
     new_transaction = Transaction(member_id=member.id, book_id=book.id, issue_date= datetime.now())
+
     db.session.add(new_transaction)
     db.session.commit()
+    
     return {'message': 'Book' + book.title + 'issued successfully to ' + member.name}
 
 def return_book_by_member(member_id, book_id):
@@ -98,10 +100,13 @@ def return_book_by_member(member_id, book_id):
     if not transaction:
         return {'message': 'Member did not borrow this book'}, 400
     
-    # due_date = datetime.utcnow() - timedelta(days=14)
 
+    # after successfully return transaction
+    # increase the book stock by 1
     book.stock += 1
+    # subtract the book rent from the member outstanding_dept
     member.outstanding_debt -= book.rent_fee
+
     db.session.delete(transaction)
     db.session.commit()
 

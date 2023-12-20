@@ -3,11 +3,13 @@ from flask_restful import Api, Resource
 from models import db, Member
 from member_utils import validate_required_fields, create_member, get_all_members, update_member, delete_member, issue_book_to_member, return_book_by_member
 
+# Create a Blueprint for member-related routes
 member_bp = Blueprint('member', __name__)
 api = Api(member_bp)
 
 class MemberResource(Resource):
     def post(self):
+        """Create a new member."""
         data = request.get_json()
 
         required_fields = ['name']
@@ -17,33 +19,31 @@ class MemberResource(Resource):
         
         new_member = create_member(data)
 
-        return {'message': 'Member Created Successfully', 'member_id': new_member.name}, 201
+        return {'message': 'Member Created Successfully', 'member_id': new_member.id}, 201
     
     def put(self, member_id):
+        """Edit details for a specific member."""
         data = request.get_json()
-
-        required_field = ['name']
-        validation_result = validate_required_fields(data, required_field)
-        if validation_result:
-            return validation_result
 
         updated_member = update_member(member_id, data)
 
         return {'message': 'Member updated Successfully', 'member_id': updated_member.id}
 
     def delete(self, member_id):
-
+        """Delete a specific member."""
         result = delete_member(member_id)
 
         return result
 
 class MemberListResource(Resource):
     def get(self):
+        """Retrieve a list of all members."""
         members_data = get_all_members()
         return {'members': members_data}
  
 class TransactionResource(Resource):
     def post(self, member_id):
+        """Issue or return a book to/from a member."""
         data = request.get_json()
 
         # Check if the request includes a 'book_id'
@@ -52,7 +52,7 @@ class TransactionResource(Resource):
 
         book_id = data['book_id']
 
-        # Check if the request includes a 'operation' indicating whether to issue or return
+        # Check if the request includes an 'operation' indicating whether to issue or return
         if 'operation' not in data:
             return {'message': 'Missing operation in the request (issue/return)'}, 400
 
@@ -75,6 +75,3 @@ class TransactionResource(Resource):
 api.add_resource(MemberResource, '/member', '/member/<int:member_id>')
 api.add_resource(MemberListResource, '/member/list')
 api.add_resource(TransactionResource, '/member/book/<int:member_id>')
-    
-
-

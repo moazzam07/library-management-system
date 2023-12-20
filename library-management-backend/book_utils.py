@@ -1,5 +1,6 @@
 from models import db, Book
-from flask import request
+from flask import jsonify
+import requests
 
 def create_book(data):
     """Create a new Book instance and add it to the database."""
@@ -79,3 +80,16 @@ def serialize_book(book):
         'rent_fee': book.rent_fee,
         'stock': book.stock
     }
+
+def import_books(api_url, params):
+
+    response = requests.get(api_url, params=params)
+
+    # Check if the request was successful (status code 200)
+    if response.status_code == 200:
+        # Parse the JSON response and return it
+        data = response.json()
+        return jsonify(data)
+    else:
+        # If the request was not successful, return an error message
+        return jsonify({'error': f'Request to {api_url} failed with status code {response.status_code}'})
