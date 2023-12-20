@@ -17,7 +17,7 @@ const App = () => {
         <Routes>
           <Route path="/import" element={<BookImport/>}/>
 
-          <Route path="/books" element={<BookList/>}/>
+          <Route path="/" element={<BookList/>}/>
                       
           <Route path="/books/edit/:id"  element = {<EditBook/>} />
           

@@ -9,7 +9,7 @@ const NavBar = () => {
     <nav>
       <ul>
         <li>
-          <Link to="/books">Book List</Link>
+          <Link to="/">Book List</Link>
         </li>
         <li>
           <Link to="/import">Import Data</Link>
