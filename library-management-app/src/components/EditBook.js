@@ -1,5 +1,5 @@
 // src/components/EditBook.js
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { updateBook } from '../services/api';
 import { useNavigate } from 'react-router-dom';
@@ -11,8 +11,8 @@ const EditBook = () => {
   const [book, setBook] = useState({
     title: '',
     authors: '',
-    rent_fee: 0.0,
-    stock: 0,
+    rent_fee: '',
+    stock: '',
   });  
 
   const handleInputChange = (e) => {
@@ -32,7 +32,7 @@ const EditBook = () => {
       // Call the API to update the book
       console.log(updatedBook)
       await updateBook(bookId, updatedBook);
-      navigate(`/books`);
+      navigate(`/`);
       alert('Book updated successfully!');
     } catch (error) {
       alert('Error updating book. Please check the data format.');
@@ -59,11 +59,8 @@ const EditBook = () => {
         </label>
         <label>
           Stock:
-          <input type="number" name="Stock" value={book.stock} onChange={handleInputChange} />
+          <input type="number" name="stock" value={book.stock} onChange={handleInputChange} />
         </label>
-
-        {/* Add other input fields as needed */}
-
         <button type="button" onClick={() => handleEditBook(id, book)}>
           Save Changes
         </button>

@@ -5,7 +5,11 @@ import ResponseBox from './ResponseBox';
 
 const BookImport = () => {
   const [importData, setImportData] = useState({
-    title: ''
+    title: '',
+    authors: '',
+    isbn: '',
+    publisher: '',
+    page: ''
   });
   const [responseData, setResponseData] = useState(null);
 
@@ -33,6 +37,13 @@ const BookImport = () => {
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      // Call the button click function when Enter is pressed
+      handleImport();
+    }
+  };
+
   const handleInputChange = (e) => {
     // Update the state when the user types in the input field
     const { name, value } = e.target;
@@ -46,15 +57,51 @@ const BookImport = () => {
     <div className="fixed-size-container">
     <div className="import-box">
       <h2>Data Import</h2>
-      <label>
-        Title:
-        <input
-          type="text"
-          name="title"
-          value={importData.title}
-          onChange={handleInputChange}
-        />
-      </label>
+      {!responseData && (
+      <div className='box'>
+        <label>
+            Title:
+            <input
+              type="text"
+              name="title"
+              value={importData.title}
+              onChange={handleInputChange}
+              onKeyPress={handleKeyPress}  />
+          </label>
+          <label>
+              Authors:
+              <input
+                type="text"
+                name="authors"
+                value={importData.authors}
+                onChange={handleInputChange}
+                onKeyPress={handleKeyPress}  />
+            </label><label>
+              isbn:
+              <input
+                type="text"
+                name="isbn"
+                value={importData.isbn}
+                onChange={handleInputChange}
+                onKeyPress={handleKeyPress}  />
+            </label><label>
+              Publisher:
+              <input
+                type="text"
+                name="publisher"
+                value={importData.publisher}
+                onChange={handleInputChange}
+                onKeyPress={handleKeyPress}  />
+            </label><label>
+              Page:
+              <input
+                type="text"
+                name="page"
+                value={importData.page}
+                onChange={handleInputChange}
+                onKeyPress={handleKeyPress}  />
+            </label></div>
+      )}
       {responseData && (
         <>
           <ResponseBox responseData={responseData} />

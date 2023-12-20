@@ -42,7 +42,6 @@ const BookList = () => {
   // console.log(books)
   const filteredBooks = books
   ? books.books.filter((book) => (
-    console.log(book),
     book?.title?.toLowerCase().includes(searchQuery.toLowerCase())))
   : [];
   

@@ -15,7 +15,7 @@ const fetchBooks = async () => {
 
 const importBooks = async (data) => {
   try {
-    const response = await axios.post(`${BASE_URL}/data-import`, data);
+    const response = await axios.post(`${BASE_URL}/api/data-import`, data);
     return response.data;
   } catch (error) {
     console.error('Error importing books:', error);

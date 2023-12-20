@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { updateBook, updateMember } from '../services/api';
+import { updateMember } from '../services/api';
 import { useNavigate } from 'react-router-dom';
 
 const EditMember = () => {
@@ -9,6 +9,7 @@ const EditMember = () => {
   const { id } = useParams();
   const [member, setMember] = useState({
     name: '',
+    outstanding_debt: null
   });  
 
   const handleInputChange = (e) => {
@@ -38,10 +39,13 @@ const EditMember = () => {
     <div className='form1'>
       <h2>Edit Member</h2>
       <form>
-        {/* Include input fields for each book detail */}
         <label>
           Name:
           <input type="text" name="name" value={member.name} onChange={handleInputChange} />
+        </label>
+        <label>
+          Debt:
+          <input type="text" name="outstanding_debt" value={member.outstanding_debt} onChange={handleInputChange} />
         </label>
         <button type="button" onClick={() => handleEditMember(id, member)}>
           Save Changes
