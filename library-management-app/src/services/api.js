@@ -8,7 +8,7 @@ const fetchBooks = async () => {
     // console.log(response.data)
     return response.data;
   } catch (error) {
-    console.error('Error fetching books:', error);
+    console.error(error.response.data.message);
     throw error;
   }
 };
@@ -18,7 +18,7 @@ const importBooks = async (data) => {
     const response = await axios.post(`${BASE_URL}/api/data-import`, data);
     return response.data;
   } catch (error) {
-    console.error('Error importing books:', error);
+    console.error(error.response.data.message);
     throw error;
   }
 };
@@ -28,7 +28,7 @@ const createBook = async (bookData) => {
     const response = await axios.post(`${BASE_URL}/api/book`, bookData);
     return response.data;
   } catch (error) {
-    console.error('Error creating book:', error);
+    console.error(error.response.data.message);
     throw error;
   }
 };
@@ -38,7 +38,7 @@ const updateBook = async (bookId, bookData) => {
     const response = await axios.put(`${BASE_URL}/api/book/${bookId}`, bookData);
     return response.data;
   } catch (error) {
-    console.error('Error updating book:', error);
+    console.error(error.response.data.message);
     throw error;
   }
 };
@@ -48,7 +48,7 @@ const deleteBook = async (bookId) => {
     const response = await axios.delete(`${BASE_URL}/api/book/${bookId}`);
     return response.data;
   } catch (error) {
-    console.error('Error deleting book:', error);
+    console.error(error.response.data.message);
     throw error;
   }
 };
@@ -59,7 +59,7 @@ const fetchMembers = async () => {
     console.log(response.data)
     return response.data;
   } catch (error) {
-    console.error('Error fetching books:', error);
+    console.error(error.response.data.message);
     throw error;
   }
 };
@@ -69,7 +69,7 @@ const createMember = async (memberData) => {
     const response = await axios.post(`${BASE_URL}/api/member`, memberData);
     return response.data;
   } catch (error) {
-    console.error('Error creating member:', error);
+    console.error(error.response.data.message);
     throw error;
   }
 };
@@ -79,7 +79,7 @@ const updateMember = async (memberId, memberData) => {
     const response = await axios.put(`${BASE_URL}/api/member/${memberId}`, memberData);
     return response.data;
   } catch (error) {
-    console.error('Error updating member:', error);
+    console.error(error.response.data.message);
     throw error;
   }
 };
@@ -89,19 +89,17 @@ const deleteMember = async (memberId) => {
     const response = await axios.delete(`${BASE_URL}/api/member/${memberId}`);
     return response.data;
   } catch (error) {
-    console.error('Error deleting member:', error);
+    alert('Member has pending dept');
     throw error;
   }
 };
 
 const bookTransaction = async (memberId, requestData) => {
   try{
-    console.log(memberId)
-    console.log(requestData)
     const response = await axios.post(`${BASE_URL}/api/member/book/${memberId}`, requestData);
     return response.data;
   } catch (error) {
-    console.error('Error in transaction:', error);
+    console.error(error.response.data.message);
     throw error;
 }
 };

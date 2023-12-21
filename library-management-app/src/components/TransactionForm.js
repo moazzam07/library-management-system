@@ -17,22 +17,23 @@ const TransactionForm = () => {
 
     e.preventDefault();
     try {
-    const requestData = {
-      book_id: formData.bookId,
-      operation: formData.type,
-    };
+      const requestData = {
+        book_id: formData.bookId,
+        operation: formData.type,
+      };
 
-    if (formData.type === 'issue') {
-      const result = await bookTransaction(formData.memberId, requestData)
-      alert(result.message)
-    } else if (formData.type === 'return') {
-      const result = await bookTransaction(formData.memberId, requestData)
+      if (formData.type === 'issue') {
+        const result = await bookTransaction(formData.memberId, requestData)
+        alert(result.message)
+      } else if (formData.type === 'return') {
+        const result = await bookTransaction(formData.memberId, requestData)
 
-      alert(result.message)
-    }
-    setFormData(initialFormData);
+        alert(result.message)
+      }
+      setFormData(initialFormData);
     } catch(error) {
-      alert('Some thing went wrong', error);
+      console.log(error.response.data.message)
+      alert(error.response.data.message);
     }
   };
 

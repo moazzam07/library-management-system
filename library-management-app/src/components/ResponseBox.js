@@ -1,4 +1,3 @@
-// ResponseBox.js
 import React, { useState } from 'react';
 import "../styles/importBook.css"
 import { createBook } from '../services/api';
@@ -21,7 +20,7 @@ const ResponseBox = ({ responseData }) => {
       alert('Book added successfully!', newBook.title);
     } catch (error) {
       alert('Error adding book. Please check the data format.');
-      console.error('Error adding book:', error);
+      console.error(error.response.data.message);
     }
   };
   return (

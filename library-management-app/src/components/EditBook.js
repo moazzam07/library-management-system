@@ -1,4 +1,3 @@
-// src/components/EditBook.js
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { updateBook } from '../services/api';
@@ -35,8 +34,8 @@ const EditBook = () => {
       navigate(`/`);
       alert('Book updated successfully!');
     } catch (error) {
-      alert('Error updating book. Please check the data format.');
-      console.error('Error updating book:', error);
+      alert(error.response.data.message);
+      // console.error('Error updating book:', error);
     }
   };
 

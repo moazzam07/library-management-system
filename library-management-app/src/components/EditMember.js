@@ -9,7 +9,7 @@ const EditMember = () => {
   const { id } = useParams();
   const [member, setMember] = useState({
     name: '',
-    outstanding_debt: null
+    outstanding_debt: ''
   });  
 
   const handleInputChange = (e) => {
@@ -30,7 +30,7 @@ const EditMember = () => {
       navigate(`/members`);
       alert('Member updated successfully!');
     } catch (error) {
-      alert('Error updating book. Please check the data format.');
+      alert(error.response.data.message);
       console.error('Error updating book:', error);
     }
   };

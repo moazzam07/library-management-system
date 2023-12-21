@@ -86,7 +86,7 @@ def issue_book_to_member(member_id, book_id):
     db.session.add(new_transaction)
     db.session.commit()
     
-    return {'message': 'Book' + book.title + 'issued successfully to ' + member.name}
+    return {'message': 'Book ' + book.title + ' issued successfully to ' + member.name}
 
 def return_book_by_member(member_id, book_id):
     member = Member.query.get(member_id)
@@ -110,4 +110,4 @@ def return_book_by_member(member_id, book_id):
     db.session.delete(transaction)
     db.session.commit()
 
-    return {'message': 'Book' + book.title + 'returned successfully from ' + member.name}
+    return {'message': 'Book ' + book.title + ' returned successfully from ' + member.name}

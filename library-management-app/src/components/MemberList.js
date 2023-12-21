@@ -1,5 +1,3 @@
-// MemberList.js
-
 import React, { useState, useEffect } from 'react';
 import '../styles/MemberList.css'; // Import the CSS file
 import { fetchMembers, deleteMember } from '../services/api';
@@ -16,7 +14,7 @@ const MemberList = () => {
         const result = await fetchMembers();
         setMembers(result.members);
       } catch (error) {
-        console.error('Error Fetching Members:', error);
+        console.error(error.response.data.message);
       }
     };
 
@@ -35,7 +33,7 @@ const MemberList = () => {
       setMembers((prevMembers) => prevMembers.filter((member) => member.id !== member_id));
     } catch (error) {
       // Handle errors, e.g., show an error message
-      console.error('Error deleting Member:', error);
+      console.error(error.response.data.message);
     }
   };
 

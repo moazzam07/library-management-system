@@ -33,7 +33,7 @@ const BookImport = () => {
       console.log('Import result:', cleanedResult);
     } catch (error) {
       // Handle errors, e.g., show an error message
-      console.error('Error importing books:', error);
+      console.error(error.response.data.message);
     }
   };
 
