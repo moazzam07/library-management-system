@@ -20,8 +20,42 @@ This is a simple Library Management System implemented using React for the front
 - Backend: Flask (Python)
 - Database: SQL
 ```
-## Getting Started
+## Screenshots
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/library-management-system.git
+### Import Books
+
+![Import Books](screenshots/import-books.png)
+![](screenshots/imported-books.png)
+
+
+### Book List
+
+![Book List](screenshots/book-list.png)
+
+### Book Details
+
+![Book Details](screenshots/book-detail.png)
+
+### Book Search
+
+![Book Search](screenshots/book-search.png)
+
+### Edit Book
+
+![Edit Book](screenshots/edit-book.png)
+
+### Member List
+
+![Member List](screenshots/member-list.png)
+
+### Add Member
+
+![Add Member](screenshots/add-member.png)
+
+### Edit Member
+
+![Edit Member](screenshots/edit-member.png)
+
+### Book Transaction
+
+![Book Transaction](screenshots/book-transaction.png)

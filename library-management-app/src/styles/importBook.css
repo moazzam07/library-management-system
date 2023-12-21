@@ -78,8 +78,8 @@ button:hover {
   border: 1px solid #ccc;
   background-color: white;
   padding: 10px;
-  margin-top: 20px;
-  max-height: 300px;
+  margin-top: 5px;
+  max-height: 350px;
   overflow: auto;
 }
 

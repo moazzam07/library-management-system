@@ -56,7 +56,7 @@ const BookImport = () => {
   return (
     <div className="fixed-size-container">
     <div className="import-box">
-      <h2>Data Import</h2>
+      <h2>Book Import</h2>
       {!responseData && (
       <div className='box'>
         <label>
