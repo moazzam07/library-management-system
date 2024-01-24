@@ -8,7 +8,6 @@ const MemberForm = ({ member }) => {
 
   const [formData, setFormData] = useState({
     name: member ? member.name : '',
-    // Add other member properties
   });
 
   const handleSubmit = async (e) => {
